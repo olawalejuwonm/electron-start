@@ -4,7 +4,10 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron . --asar=true",
+    "pack": "electron-builder --dir",
+    "rebuild": "electron-rebuild -f -w opencv4nodejs",
+    "dev": "electron . --debug"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
