@@ -1,19 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+    <meta charset="utf-8">
+      <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+      <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>Face recognition</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="render.js"></script>
   </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
+  <body onload="readDirectory()">
+    <div class="app">
+      <div class="header">
+        <div class="logo-wrap">
+          <p><span class="logo">FFC - Face recognition from camera</span></p>
+        </div>
+      </div>
+      <div class="main">
+        <div class="main-wrap">
+          <div class="video-menu">
+            <div class="setup-menu">
+              <div class="p-left">
+                <span class="lbl">Face Camera App</span>
+                <p>
+                  Using Node.js <span id="node-version"></span>,
+                  Chromium <span id="chrome-version"></span>,
+                  and Electron <span id="electron-version"></span>.
+              </p>
+              </div>
+              <div class="p-rigth">
+                <button class="btn start" type="button" onclick="startVideo()" id="startAndStop"><span class="text">Start</span></button>
+              </div>
+          </div>
+          <div class="video-wrap mrg-1">
+            <canvas id="video-flow"></canvas>
+          </div>
+          <div class="setup-menu">
+            <div class="p-left">
+              <input  type="file" webkitdirectory  id="setupDir" onchange="setupDirectory()" value="Установить директорию"/>
+            </div>
+            <div class="p-rigth">
+              <button class="btn start" type="button" id="saveImage" onclick="saveImage()" disabled><span class="text">Save</span></button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="copyrigth-wrap">
+          <p><span class="copyrigth">Cephas Digital© 2021</span></p>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
