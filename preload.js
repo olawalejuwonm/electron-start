@@ -6,7 +6,15 @@ window.addEventListener('DOMContentLoaded', () => {
     if (element) element.innerText = text
   }
 
+
+
   for (const type of ['chrome', 'node', 'electron']) {
     replaceText(`${type}-version`, process.versions[type])
   }
 })
+
+function startVideo() {
+  document.getElementById("startAndStop").onclick(()=> {
+      alert("hi")
+  })
+}
