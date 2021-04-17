@@ -2,7 +2,7 @@ const PiCamera = require('pi-camera');
 const myCamera = new PiCamera({
   mode: 'video',
   output: `${ __dirname }/video.h264`,
-  width: 1920,
+  width: 800,
   height: 1080,
   timeout: 20000, // Record for 5 seconds
   nopreview: false,
