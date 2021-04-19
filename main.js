@@ -3,11 +3,11 @@ const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
 const PiCamera = require('pi-camera');
 const myCamera = new PiCamera({
-  mode: 'video',
-  output: `${ __dirname }/video.h264`,
+  mode: 'photo',
+  output: `${ __dirname }/image.h264`,
   width: 800,
-  height: 1080,
-  timeout: 20000, // Record for 5 seconds
+  height: 500,
+  timeout: 1000, // Record for 5 seconds
   nopreview: false,
 });
 
@@ -56,12 +56,13 @@ app.on('window-all-closed', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-ipcMain.on("startCamera", () => {
+ipcMain.on("startCamera", (e, arg) => {
   console.log("start")
-  myCamera.record()
+  myCamera.snapDataUrl()
   .then((result) => {
     // Your video was captured
-    console.log("Suu", result)
+    e.reply("image", result)
+    // console.log("Suu", result)
   })
   .catch((error) => {
      // Handle your error

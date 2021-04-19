@@ -16,3 +16,8 @@ document.getElementById('startAndStop').addEventListener("click", () => {
     ipcRenderer.send("startCamera")
 })
 
+ipcRenderer.on("image", (e,arg) => {
+    console.log(e, arg)
+    document.getElementById("video-flow").innerHTML=`<img src="${arg}">)`
+})
+
