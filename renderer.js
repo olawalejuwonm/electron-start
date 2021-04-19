@@ -5,4 +5,14 @@
 // selectively enable features needed in the rendering
 // process.
 
+const { ipcRenderer } = require("electron")
+
+
+
+
+console.log("hi")
+document.getElementById('startAndStop').addEventListener("click", () => {
+    
+    ipcRenderer.send("startCamera")
+})
 

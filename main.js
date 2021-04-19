@@ -1,13 +1,26 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
+const PiCamera = require('pi-camera');
+const myCamera = new PiCamera({
+  mode: 'video',
+  output: `${ __dirname }/video.h264`,
+  width: 800,
+  height: 1080,
+  timeout: 20000, // Record for 5 seconds
+  nopreview: false,
+});
 
+console.log("main")
+ 
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
       preload: path.join(__dirname, 'preload.js')
     }
   })
@@ -26,6 +39,7 @@ app.whenReady().then(() => {
   createWindow()
   
   app.on('activate', function () {
+    console.log("activate")
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -41,3 +55,16 @@ app.on('window-all-closed', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.on("startCamera", () => {
+  console.log("start")
+  myCamera.record()
+  .then((result) => {
+    // Your video was captured
+    console.log("Suu", result)
+  })
+  .catch((error) => {
+     // Handle your error
+     console.log("ERR", error)
+  });
+})
